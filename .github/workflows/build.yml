@@ -22,6 +22,14 @@ jobs:
           mkdir -p sce_sys/about
           python3 tools/generate_icon.py
 
+      - name: Locate OpenOrbis build tools
+        run: |
+          docker run --rm --user 0:0 openorbisofficial/toolchain:v0.5.1 bash -lc '
+            echo "OO_PS4_TOOLCHAIN=$OO_PS4_TOOLCHAIN"
+            echo "Relevant executables:"
+            find / -type f \( -name "create-fself" -o -name "create-fself.exe" -o -name "create-gp4" -o -name "PkgTool.Core" \) 2>/dev/null | sort
+          '
+
       - name: Build PS4 package with OpenOrbis Docker toolchain
         run: |
           docker run --rm --user 0:0 \
