@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <cctype>
 #include <cstring>
+#include <cstdio>
 
 static const int SCREEN_W = 1280;
 static const int SCREEN_H = 720;
