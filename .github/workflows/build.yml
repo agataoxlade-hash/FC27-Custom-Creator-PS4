@@ -24,7 +24,7 @@ jobs:
 
       - name: Build PS4 package with OpenOrbis Docker toolchain
         run: |
-          docker run --rm \
+          docker run --rm --user 0:0 \
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace \
             openorbisofficial/toolchain:v0.5.1 \
