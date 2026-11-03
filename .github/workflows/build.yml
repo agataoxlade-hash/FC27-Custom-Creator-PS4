@@ -19,8 +19,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pil
-          python3 tools/generate_icon.py
           mkdir -p sce_sys/about
+          python3 tools/generate_icon.py
 
       - name: Build PS4 package with OpenOrbis Docker toolchain
         run: |
