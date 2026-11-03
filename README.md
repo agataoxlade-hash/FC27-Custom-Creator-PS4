@@ -1,28 +1,31 @@
 # FC27 Custom Creator — PS4 HEN
 
-Proyek aplikasi homebrew pendamping FC 27 untuk PS4 HEN. Target awal: **offline-first**, kontroler PS4, dan pengelolaan file lokal/USB.
+Aplikasi homebrew pendamping FC 27 untuk PS4 HEN. Sasaran desain: **offline-first**, navigasi dengan kontroler PS4, dan pengelolaan file lokal/USB secara aman.
 
-## Target kompatibilitas
-- Konsol target: PS4 HEN, firmware yang dilaporkan pengguna: 12.52.
-- Game target: FC 27, Title ID CUSA57220, versi 1.07 (perlu diverifikasi di konsol).
-- Koneksi internet: tidak diperlukan saat aplikasi digunakan.
+## Target yang dilaporkan
+- Konsol: PS4 HEN, firmware 12.52.
+- Game: FC 27, Title ID CUSA57220, versi 1.07 (perlu diverifikasi di konsol).
+- Aplikasi dirancang dapat digunakan tanpa internet setelah terpasang.
+
+## Status pengembangan
+- Kerangka source code antarmuka SDL2 sudah ditambahkan.
+- Workflow GitHub Actions untuk mencoba membangun PKG dengan OpenOrbis sudah ditambahkan.
+- Build pertama masih perlu berjalan dan diperiksa. PKG belum boleh dianggap berhasil sebelum artefak muncul dan diuji pada PS4.
+- Menu saat ini adalah prototipe; modul terjemahan, mod visual, dan pengelola USB belum aktif.
 
 ## Modul yang direncanakan
-1. **Bahasa Indonesia** — memeriksa dan mengelola paket terjemahan lokal yang disediakan pengguna. Aplikasi tidak menyertakan atau mengekstrak aset game berhak cipta.
-2. **Modifikasi visual** — mengelola arsip mod lokal yang kompatibilitasnya sudah diverifikasi; tidak menjanjikan semua mod dapat dipasang.
-3. **Pengelola file** — menampilkan dan menyalin file antara USB dan lokasi yang memang dapat diakses homebrew; membuat cadangan sebelum perubahan.
-4. **Antarmuka** — menu sederhana yang dapat dinavigasi dengan kontroler PS4.
+1. **Bahasa Indonesia** — mengelola paket terjemahan lokal yang disediakan pengguna setelah format dan kompatibilitasnya diketahui.
+2. **Visual Mods** — mengelola paket mod lokal yang sudah diverifikasi.
+3. **USB File Manager** — menampilkan dan menyalin file pengguna antara USB dan lokasi yang dapat diakses aplikasi homebrew.
+4. **Antarmuka** — menu offline dengan kontroler PS4.
 
-## Status saat ini
-Ini adalah **kerangka proyek dan spesifikasi**, bukan PKG siap instal. Belum ada binary PS4 yang dibangun atau diuji. Pembuatan PKG memerlukan toolchain homebrew PS4 yang sesuai, dependensi, serta proses build dan pengujian pada konsol.
-
-Lihat [rencana pengembangan](docs/ROADMAP.md) dan [batasan teknis](docs/TECHNICAL-NOTES.md).
-
-## Prinsip keselamatan data
+## Prinsip keamanan data
 - Tidak mengubah file game asli tanpa cadangan.
 - Tidak menghapus atau menimpa file secara diam-diam.
-- Tidak menjanjikan dukungan untuk file, patch, atau mod yang belum diuji.
+- Tidak menjanjikan kompatibilitas file/mod yang belum diuji.
 - Tidak melewati DRM, lisensi, atau pemeriksaan keamanan game.
 
-## Kontribusi
-Mulai dengan membaca dokumen di folder `docs/`.
+## Build
+Setiap perubahan ke branch `main` memicu GitHub Actions. Jika build berhasil, file PKG tersedia pada bagian **Artifacts** dari hasil workflow. File tersebut tetap harus diuji di konsol sebelum dianggap siap digunakan.
+
+Lihat [rencana pengembangan](docs/ROADMAP.md) dan [catatan teknis](docs/TECHNICAL-NOTES.md).
