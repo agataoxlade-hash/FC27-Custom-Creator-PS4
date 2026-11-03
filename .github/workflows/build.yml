@@ -19,16 +19,23 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pil
-          mkdir -p sce_sys/about
+          mkdir -p sce_sys/about .tools
           python3 tools/generate_icon.py
 
-      - name: Locate OpenOrbis build tools
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Get OpenOrbis packaging tools
         run: |
-          docker run --rm --user 0:0 openorbisofficial/toolchain:v0.5.1 bash -lc '
-            echo "OO_PS4_TOOLCHAIN=$OO_PS4_TOOLCHAIN"
-            echo "Relevant executables:"
-            find / -type f \( -name "create-fself" -o -name "create-fself.exe" -o -name "create-gp4" -o -name "PkgTool.Core" \) 2>/dev/null | sort
-          '
+          git clone --depth 1 https://github.com/OpenOrbis/create-fself.git /tmp/create-fself
+          git clone --depth 1 https://github.com/OpenOrbis/create-gp4.git /tmp/create-gp4
+          cd /tmp/create-fself/cmd/create-fself
+          CGO_ENABLED=0 go build -modfile=go-linux.mod -o "$GITHUB_WORKSPACE/.tools/create-fself" .
+          cd /tmp/create-gp4/cmd/create-gp4
+          CGO_ENABLED=0 go build -o "$GITHUB_WORKSPACE/.tools/create-gp4" .
+          chmod +x "$GITHUB_WORKSPACE/.tools/create-fself" "$GITHUB_WORKSPACE/.tools/create-gp4"
 
       - name: Build PS4 package with OpenOrbis Docker toolchain
         run: |
@@ -37,10 +44,15 @@ jobs:
             -w /workspace \
             openorbisofficial/toolchain:v0.5.1 \
             bash -lc 'set -eu
+              mkdir -p "$OO_PS4_TOOLCHAIN/bin/linux"
+              cp .tools/create-fself "$OO_PS4_TOOLCHAIN/bin/linux/create-fself"
+              cp .tools/create-gp4 "$OO_PS4_TOOLCHAIN/bin/linux/create-gp4"
+              chmod +x "$OO_PS4_TOOLCHAIN/bin/linux/create-fself" "$OO_PS4_TOOLCHAIN/bin/linux/create-gp4"
               RIGHT_SPRX="$(find "$OO_PS4_TOOLCHAIN" -name right.sprx -type f | head -n 1)"
               test -n "$RIGHT_SPRX"
               cp "$RIGHT_SPRX" sce_sys/about/right.sprx
               make
+              test -s IV0000-FC27C0001_00-FC27CREATOR00000.pkg
             '
 
       - name: Save PKG artifact
