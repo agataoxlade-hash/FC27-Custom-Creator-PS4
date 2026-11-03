@@ -1,25 +1,27 @@
 # Rencana Pengembangan
 
-## Sasaran versi awal (MVP)
-- [ ] Aplikasi homebrew PS4 dengan antarmuka offline.
-- [ ] Navigasi penuh menggunakan D-pad, tombol silang, lingkaran, dan tombol kembali.
-- [ ] Deteksi media USB dan daftar file/folder.
-- [ ] Salin file pengguna dari USB ke folder kerja aplikasi dan sebaliknya.
+## Tahap 1 — kerangka aplikasi
+- [x] Source code awal antarmuka SDL2.
+- [x] Menu awal dengan navigasi kontroler.
+- [x] Workflow GitHub Actions untuk build OpenOrbis.
+- [ ] Build pertama berhasil dan artefak PKG tersedia.
+- [ ] Instalasi dan tampilan diuji pada PS4 HEN.
+
+## Tahap 2 — pengelola file lokal
+- [ ] Deteksi USB dan daftar file/folder.
+- [ ] Salin file pengguna ke folder kerja aplikasi.
 - [ ] Konfirmasi sebelum menimpa atau menghapus file.
-- [ ] Pencadangan file sebelum perubahan.
-- [ ] Pemeriksaan paket terjemahan/mod: nama, ukuran, format arsip, dan catatan kompatibilitas.
+- [ ] Cadangkan file sebelum perubahan.
 - [ ] Log aktivitas lokal.
 
-## Tahap berikutnya
-- [ ] Modul pengelolaan paket Bahasa Indonesia setelah format file dan metode pemasangan yang sah/kompatibel diketahui.
-- [ ] Modul mod visual setelah format, lokasi file, dan batas kompatibilitas FC 27 CUSA57220 v1.07 diverifikasi.
-- [ ] Pengujian pada PS4 HEN firmware 12.52.
+## Tahap 3 — modul FC 27
+- [ ] Pemeriksaan paket terjemahan: nama, ukuran, format, catatan kompatibilitas.
+- [ ] Modul Bahasa Indonesia setelah format file dan metode pemasangan yang sah/kompatibel diketahui.
+- [ ] Modul mod visual setelah format, lokasi, dan kompatibilitas FC 27 CUSA57220 v1.07 diverifikasi.
 
 ## Kriteria rilis
 - [ ] Build native PS4 berhasil.
 - [ ] PKG berhasil dibuat.
-- [ ] Instalasi dan pembukaan aplikasi diuji pada perangkat target.
-- [ ] Semua operasi file diuji dengan file contoh dan cadangan.
+- [ ] Instalasi dan pembukaan aplikasi diuji pada PS4 target.
+- [ ] Operasi file diuji dengan file contoh dan cadangan.
 - [ ] Tidak ada klaim fitur yang belum diuji.
-
-**Catatan:** status kotak centang mencerminkan pekerjaan yang belum dilakukan. Repo saat ini baru berisi dokumentasi awal.
