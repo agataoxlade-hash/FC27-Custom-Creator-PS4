@@ -1,0 +1,42 @@
+name: Build FC27 Custom Creator
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get project files
+        uses: actions/checkout@v4
+
+      - name: Prepare package icon
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pil
+          python3 tools/generate_icon.py
+          mkdir -p sce_sys/about
+
+      - name: Build PS4 package with OpenOrbis
+        uses: OpenOrbis/toolchain-action@main
+        with:
+          version: v0.5.4
+          command: |
+            set -eu
+            RIGHT_SPRX="$(find "$OO_PS4_TOOLCHAIN" -name right.sprx -type f | head -n 1)"
+            test -n "$RIGHT_SPRX"
+            cp "$RIGHT_SPRX" sce_sys/about/right.sprx
+            make
+
+      - name: Save PKG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FC27-Custom-Creator-PKG
+          path: "*.pkg"
+          if-no-files-found: error
+          retention-days: 30
