@@ -4,7 +4,8 @@ VERSION     := 01.00
 TITLE_ID    := FC27C0001
 CONTENT_ID  := IV0000-FC27C0001_00-FC27CREATOR00000
 
-LIBS        := -lc -lkernel -lc++ -lSceUserService -lSceVideoOut -lScePad -lSceSysmodule -lSDL2
+# SDL2 and PS4 system libraries used by the OpenOrbis SDL2 sample.
+LIBS        := -lc -lkernel -lc++ -lSceUserService -lSceVideoOut -lSceAudioOut -lScePad -lSceSysmodule -lSceFreeType -lSDL2 -lSDL2_image
 
 TOOLCHAIN   := $(OO_PS4_TOOLCHAIN)
 PROJDIR     := fc27_creator
