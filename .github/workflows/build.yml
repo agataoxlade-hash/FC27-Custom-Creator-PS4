@@ -22,16 +22,18 @@ jobs:
           python3 tools/generate_icon.py
           mkdir -p sce_sys/about
 
-      - name: Build PS4 package with OpenOrbis
-        uses: OpenOrbis/toolchain-action@main
-        with:
-          version: v0.5.4
-          command: |
-            set -eu
-            RIGHT_SPRX="$(find "$OO_PS4_TOOLCHAIN" -name right.sprx -type f | head -n 1)"
-            test -n "$RIGHT_SPRX"
-            cp "$RIGHT_SPRX" sce_sys/about/right.sprx
-            make
+      - name: Build PS4 package with OpenOrbis Docker toolchain
+        run: |
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/workspace" \
+            -w /workspace \
+            openorbisofficial/toolchain:v0.5.1 \
+            bash -lc 'set -eu
+              RIGHT_SPRX="$(find "$OO_PS4_TOOLCHAIN" -name right.sprx -type f | head -n 1)"
+              test -n "$RIGHT_SPRX"
+              cp "$RIGHT_SPRX" sce_sys/about/right.sprx
+              make
+            '
 
       - name: Save PKG artifact
         uses: actions/upload-artifact@v4
